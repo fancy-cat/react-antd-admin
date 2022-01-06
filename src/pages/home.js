@@ -1,4 +1,4 @@
-import { Outlet, NavLink } from 'react-router-dom';
+import { Outlet, NavLink, useSearchParams } from 'react-router-dom';
 export default function Home() {
   const news = [{
     title: '新闻一', id: 1
@@ -7,6 +7,8 @@ export default function Home() {
   },{
     title: '新闻三', id: 3
   }]
+  let [searchParams, setSearchParams] = useSearchParams(); 
+  console.log(searchParams.get('type'))
   return (
     <div>
       首页新闻列表
