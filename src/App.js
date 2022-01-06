@@ -6,8 +6,8 @@ function App() {
     <div className="App">
       12
       <nav>
-        <Link to="/home">home page</Link>
-        <Link to="/login">login page</Link>
+        <Link to="/home">go home page</Link>
+        <Link to="/login">go login page</Link>
       </nav>
     </div>
   );
