@@ -13,9 +13,10 @@ render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<App />}>
+        </Route>
+        <Route path="login" element={<Login />} />
+        <Route path="home" element={<Home />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
