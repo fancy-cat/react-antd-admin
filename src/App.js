@@ -1,5 +1,5 @@
 import './App.scss';
-import { Link } from 'react-router-dom'
+import { Outlet, Link } from 'react-router-dom';
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
         <Link to="/home">go home page</Link>
         <Link to="/login">go login page</Link>
       </nav>
+      <Outlet/>
     </div>
   );
 }
