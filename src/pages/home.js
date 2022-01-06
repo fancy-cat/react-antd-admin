@@ -1,4 +1,4 @@
-import { Outlet, NavLink, useSearchParams } from 'react-router-dom';
+import { Outlet, NavLink, useSearchParams, useLocation, useNavigate } from 'react-router-dom';
 export default function Home() {
   const news = [{
     title: '新闻一', id: 1
@@ -7,8 +7,15 @@ export default function Home() {
   },{
     title: '新闻三', id: 3
   }]
-  let [searchParams, setSearchParams] = useSearchParams(); 
+  let [searchParams] = useSearchParams(); 
   console.log(searchParams.get('type'))
+  let location = useLocation()
+  console.log(location)
+  const navigate = useNavigate()
+
+  const goLoginPage = () => {
+    navigate('/login')
+  }
   return (
     <div>
       首页新闻列表
@@ -21,11 +28,14 @@ export default function Home() {
                   color: isActive ? 'red': ''
                 }
               }}
-              to={`/home/${v.id}`}>{v.title+v.id}</NavLink>
+              to={`/home/${v.id}?type=100${v.id}`}>{v.title+v.id}</NavLink>
           </li>))
         }
       </ul>
       <Outlet />
+      <div>
+        <button onClick={() => goLoginPage()}>去登录页面</button>
+      </div>
     </div>
   )
 }
