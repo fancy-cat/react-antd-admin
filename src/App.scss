@@ -1,9 +1,9 @@
 @use './styles/variable.scss';
+@import '~antd/dist/antd.css';
+@import './styles/common.scss';
+
 .App {
   color: variable.$font_color;
-}
-.App-header {
   min-height: 100vh;
-  font-size: calc(10px + 2vmin);
 }
 
