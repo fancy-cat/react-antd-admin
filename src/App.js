@@ -1,6 +1,6 @@
 import './App.scss';
 import { Outlet, Link } from 'react-router-dom';
-import MainSider from './components/sider';
+import { MainSider } from './components'
 function App() {
   return (
     <div className="App">
