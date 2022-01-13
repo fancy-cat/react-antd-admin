@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { Layout, Menu } from 'antd';
+import { Link } from 'react-router-dom';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
@@ -8,9 +9,25 @@ import {
   SmileOutlined,
   AimOutlined
 } from '@ant-design/icons';
+import menus from '../routes/config';
 const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
+console.log(menus)
 
+const renderMenuItem = (item) => {
+  return <Menu.Item key={item.key}>
+    <Link to={item.key}>{item.title}</Link>
+  </Menu.Item> 
+}
+const renderSubMenu = (item) => {
+  return (
+    <SubMenu key={item.key} title={item.title}>
+      {
+        item.subs.map(mSub => mSub.subs ? renderSubMenu(mSub) : renderMenuItem(mSub))
+      }
+    </SubMenu>
+  )
+}
 export default function MainSider(props) {
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
@@ -21,20 +38,10 @@ export default function MainSider(props) {
       <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="title">ADMIN-DEMO</div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1" icon={<AimOutlined />}>
-              首页
-            </Menu.Item>
-            <SubMenu key="sub1" icon={<SkinOutlined />} title="UI组件">
-              <Menu.Item key="2">组件1</Menu.Item>
-              <Menu.Item key="3">组件2</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="4" icon={<SmileOutlined />}>
-              待开发
-            </Menu.Item>
-            <Menu.Item key="5" icon={<SmileOutlined />}>
-              待开发
-            </Menu.Item>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['/home']}>
+            { 
+              menus.menu.map(m => !m.subs ? renderMenuItem(m) : renderSubMenu(m)) 
+            }
           </Menu>
         </Sider>
         <Layout className="site-layout">
