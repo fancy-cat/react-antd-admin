@@ -44,7 +44,6 @@ export default function MainSider(props) {
       let list = pathname.split('/')
       if(list.length > 2) {
         let currentPath = `/${list[1]}`
-        console.log(currentPath)
         setDefaultOpenKeys([currentPath])
         // 都没有打开时 默认改为打开状态
         if(!openKeys.includes(currentPath)) {
