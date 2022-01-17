@@ -1,18 +1,14 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Layout, Menu } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import {
   MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  SkinOutlined,
-  SmileOutlined,
-  AimOutlined
+  MenuFoldOutlined
 } from '@ant-design/icons';
 import menus from '../routes/config';
 const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
-console.log(menus)
 
 const renderMenuItem = (item) => {
   return <Menu.Item key={item.key}>
@@ -29,6 +25,40 @@ const renderSubMenu = (item) => {
   )
 }
 export default function MainSider(props) {
+  let location = useLocation()
+  const [selectedKey, setSelectedKey] = useState([])
+  const [openKeys, setOpenKeys] = useState([]);
+  const [defaultOpenKeys, setDefaultOpenKeys] = useState([]);
+  const openMenu = (v) => {
+    // 情景1: 只打开一个subMenu
+    // let temp = v.slice(v.length-1)
+    // setOpenKeys(temp)
+    // 情景2: 同时打开多个subMenu
+    setOpenKeys(v)
+  }
+  useEffect(() => {
+    const formatOpenKeys = (pathname) => {
+      console.log(1)
+      // setOpenKeys('/waiting')
+      // 格式一般从属于一级path eg：/news/1 --> return /news
+      let list = pathname.split('/')
+      if(list.length > 2) {
+        let currentPath = `/${list[1]}`
+        console.log(currentPath)
+        setDefaultOpenKeys([currentPath])
+        // 都没有打开时 默认改为打开状态
+        if(!openKeys.includes(currentPath)) {
+          openKeys.push(currentPath)
+          setOpenKeys(openKeys)
+        }
+      } else {
+        setDefaultOpenKeys(undefined)
+      }
+    }
+    setSelectedKey([location.pathname])
+    formatOpenKeys(location.pathname)
+  }, [location.pathname]);
+
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
     setCollapsed(!collapsed)
@@ -38,9 +68,9 @@ export default function MainSider(props) {
       <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed}>
           <div className="title">ADMIN-DEMO</div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['/home']}>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['/home']} selectedKeys={selectedKey} defaultOpenKeys={defaultOpenKeys} openKeys={openKeys} onOpenChange={openMenu}>
             { 
-              menus.menu.map(m => !m.subs ? renderMenuItem(m) : renderSubMenu(m)) 
+              menus.menu.map(m => !m.subs ? renderMenuItem(m) : renderSubMenu(m))
             }
           </Menu>
         </Sider>

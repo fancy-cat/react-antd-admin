@@ -3,7 +3,6 @@ import AllPage from '../pages';
 import menus from './config';
 import App from '../App';
 import { connect } from 'react-redux';
-import Login from '../pages/login';
 
 function MainRouter({userInfo}) {
   let token = userInfo && userInfo.token

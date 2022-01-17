@@ -8,14 +8,25 @@ const menus = {
     { key: '/todos', title: '任务', icon: '', component: 'Todos', auth: false },
     { key: '/news', title: '新闻', icon: '', component: 'News', auth: false },
     { 
-      key: '/waiting', 
+      key: '/waiting1', 
       title: '待开发', 
       icon: '', 
       component: '',
       subs: [
-        { key: '/waiting/w1', title: '不需登录', component: 'Waiting', auth: false},
-        { key: '/waiting/w2', title: '不需登录', component: 'Waiting', auth: false},
-        { key: '/waiting/w3', title: '需要登录', component: 'Waiting', auth: true}
+        { key: '/waiting1/w1', title: '不需登录', component: 'Waiting', auth: false},
+        { key: '/waiting1/w2', title: '不需登录', component: 'Waiting', auth: false},
+        { key: '/waiting1/w3', title: '需要登录', component: 'Waiting', auth: true}
+      ]
+    },
+    { 
+      key: '/waiting2', 
+      title: '待开发', 
+      icon: '', 
+      component: '',
+      subs: [
+        { key: '/waiting2/a1', title: '不需登录', component: 'Waiting', auth: false},
+        { key: '/waiting2/a2', title: '不需登录', component: 'Waiting', auth: false},
+        { key: '/waiting2/a3', title: '需要登录', component: 'Waiting', auth: true}
       ]
     }
   ], 
