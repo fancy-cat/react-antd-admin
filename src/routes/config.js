@@ -1,16 +1,23 @@
 /**
  * 路由格式配置
  */
+ import {
+  HomeOutlined,
+  OrderedListOutlined,
+  ReadOutlined,
+  QuestionOutlined
+} from '@ant-design/icons';
+
 const menus = {
   // 菜单路由
   menu: [
-    { key: '/home', title: '首页', icon: '', component: 'Home', auth: false },
-    { key: '/todos', title: '任务', icon: '', component: 'Todos', auth: false },
-    { key: '/news', title: '新闻', icon: '', component: 'News', auth: false },
+    { key: '/home', title: '首页', icon: HomeOutlined, component: 'Home', auth: false },
+    { key: '/todos', title: '任务', icon: OrderedListOutlined, component: 'Todos', auth: false },
+    { key: '/news', title: '新闻', icon: ReadOutlined, component: 'News', auth: false },
     { 
       key: '/waiting1', 
       title: '待开发', 
-      icon: '', 
+      icon: QuestionOutlined, 
       component: '',
       subs: [
         { key: '/waiting1/w1', title: '不需登录', component: 'Waiting', auth: false},
@@ -21,12 +28,12 @@ const menus = {
     { 
       key: '/waiting2', 
       title: '待开发', 
-      icon: '', 
+      icon: QuestionOutlined, 
       component: '',
       subs: [
-        { key: '/waiting2/a1', title: '不需登录', component: 'Waiting', auth: false},
+        { key: '/waiting2/a1', title: '需要登录', component: 'Waiting', auth: true},
         { key: '/waiting2/a2', title: '不需登录', component: 'Waiting', auth: false},
-        { key: '/waiting2/a3', title: '需要登录', component: 'Waiting', auth: true}
+        { key: '/waiting2/a3', title: '不需登录', component: 'Waiting', auth: false}
       ]
     }
   ], 

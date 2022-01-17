@@ -11,13 +11,13 @@ const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
 const renderMenuItem = (item) => {
-  return <Menu.Item key={item.key}>
+  return <Menu.Item key={item.key} icon={item.icon && <item.icon />}>
     <Link to={item.key}>{item.title}</Link>
   </Menu.Item> 
 }
 const renderSubMenu = (item) => {
   return (
-    <SubMenu key={item.key} title={item.title}>
+    <SubMenu key={item.key} title={item.title} icon={item.icon && <item.icon />}>
       {
         item.subs.map(mSub => mSub.subs ? renderSubMenu(mSub) : renderMenuItem(mSub))
       }
@@ -66,7 +66,11 @@ export default function MainSider(props) {
     <div className="main-sider">
       <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed}>
-          <div className="title">ADMIN-DEMO</div>
+          <div className="title">
+            {
+              !collapsed && <div style={{width: '200px'}}>ADMIN-DEMO</div>
+            }
+          </div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['/home']} selectedKeys={selectedKey} defaultOpenKeys={defaultOpenKeys} openKeys={openKeys} onOpenChange={openMenu}>
             { 
               menus.menu.map(m => !m.subs ? renderMenuItem(m) : renderSubMenu(m))
