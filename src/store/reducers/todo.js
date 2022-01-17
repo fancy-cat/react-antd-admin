@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import { 
   VisibilityFilters,
   SET_VISIBILITY_FILTER,
@@ -9,7 +8,7 @@ import {
 const { SHOW_ALL } = VisibilityFilters
 // 将不同功能的reducer拆分
 // todos功能
-function todos(state = [], action) {
+export function todos(state = [], action) {
   switch(action.type) {
     case ADD_TODO:
       return [...state, {
@@ -29,7 +28,7 @@ function todos(state = [], action) {
   }
 }
 // visibility功能
-function visibilityFilter(state = SHOW_ALL, action) {
+export function visibilityFilter(state = SHOW_ALL, action) {
   switch(action.type) {
     case SET_VISIBILITY_FILTER:
       return action.filter
@@ -37,6 +36,8 @@ function visibilityFilter(state = SHOW_ALL, action) {
       return state
   }
 }
+
+// ---- 合并到index.js
 // 纯函数 根据action指令 修改state
 // 主 reducer 并不需要设置初始化时完整的 state。初始时，如果传入 undefined, 子 reducer 将负责返回它们的默认值
 // function todoApp(state = {} , action) {
@@ -48,10 +49,10 @@ function visibilityFilter(state = SHOW_ALL, action) {
 
 // 将上面部分改写
 // combineReducers() 所做的只是生成一个函数  调用各个reducer
-const todoApp = combineReducers({
-  visibilityFilter,
-  todos
-})
+// const reducers = combineReducers({
+//   visibilityFilter,
+//   todos
+// })
 
-export default todoApp
+// export default reducers
 

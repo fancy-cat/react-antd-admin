@@ -1,6 +1,6 @@
 import { createStore } from 'redux'
-import todoApp from "./reducers/todo.js";
+import reducers from "./reducers/index.js";
 
-let store = createStore(todoApp)
+let store = createStore(reducers)
 
 export default store

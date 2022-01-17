@@ -1,12 +1,15 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AllPage from '../pages';
 import menus from './config';
 import App from '../App';
+import { connect } from 'react-redux';
+import Login from '../pages/login';
 
-export default function MainRouter() {
+function MainRouter({userInfo}) {
+  let token = userInfo && userInfo.token
   const renderRoute = (item) => {
     let Comp = AllPage[item.component]
-    return <Route key={item.key} path={item.key} element={<Comp />} />
+    return <Route key={item.key} path={item.key} element={!item.auth ? <Comp /> : (token ? <Comp /> : <Navigate to="/login" replace={true} />)} />
   }
   const renderSubRoute = (item) => {
     return <Route key={item.key}>
@@ -31,3 +34,11 @@ export default function MainRouter() {
     </BrowserRouter>
   )
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userInfo: state.userInfo
+  }
+}
+
+export default connect(mapStateToProps)(MainRouter)

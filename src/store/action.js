@@ -2,6 +2,7 @@
 export const ADD_TODO = 'ADD_TODO'
 export const TOGGLE_TODO = 'TOGGLE_TODO'
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
+export const SET_USER_INFO = 'SET_USER_INFO'
 
 // 其他常量
 export const VisibilityFilters = {
@@ -19,4 +20,7 @@ export function toggleTodo(index) {
 }
 export function setVisibilityFilter(filter) {
   return { type: SET_VISIBILITY_FILTER, filter}
+}
+export function setUserInfo(obj) {
+  return { type: SET_USER_INFO, obj}
 }
