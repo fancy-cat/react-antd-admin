@@ -25,43 +25,22 @@ const renderSubMenu = (item) => {
   )
 }
 export default function MainSider(props) {
+  const [collapsed, setCollapsed] = useState(false);
+  const toggle = (v) => {
+    setCollapsed(!collapsed)
+  }
   let location = useLocation()
-  const [selectedKey, setSelectedKey] = useState([])
   const [openKeys, setOpenKeys] = useState([]);
-  const [defaultOpenKeys, setDefaultOpenKeys] = useState([]);
   const openMenu = (v) => {
-    // 情景1: 只打开一个subMenu
-    // let temp = v.slice(v.length-1)
-    // setOpenKeys(temp)
-    // 情景2: 同时打开多个subMenu
     setOpenKeys(v)
   }
   useEffect(() => {
-    const formatOpenKeys = (pathname) => {
-      console.log(1)
-      // setOpenKeys('/waiting')
-      // 格式一般从属于一级path eg：/news/1 --> return /news
-      let list = pathname.split('/')
-      if(list.length > 2) {
-        let currentPath = `/${list[1]}`
-        setDefaultOpenKeys([currentPath])
-        // 都没有打开时 默认改为打开状态
-        if(!openKeys.includes(currentPath)) {
-          openKeys.push(currentPath)
-          setOpenKeys(openKeys)
-        }
-      } else {
-        setDefaultOpenKeys(undefined)
-      }
+    let list = location.pathname.split('/')
+    if(list.length > 2) {
+      let currentPath = `/${list[1]}`
+      setOpenKeys([currentPath])
     }
-    setSelectedKey([location.pathname])
-    formatOpenKeys(location.pathname)
-  }, [location.pathname]);
-
-  const [collapsed, setCollapsed] = useState(false);
-  const toggle = () => {
-    setCollapsed(!collapsed)
-  }
+  }, [collapsed]) // 只打开一个subMenu的话，同时监听location.pathname
   return (
     <div className="main-sider">
       <Layout>
@@ -71,7 +50,7 @@ export default function MainSider(props) {
               !collapsed && <div style={{width: '200px'}}>ADMIN-DEMO</div>
             }
           </div>
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['/home']} selectedKeys={selectedKey} defaultOpenKeys={defaultOpenKeys} openKeys={openKeys} onOpenChange={openMenu}>
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['/home']} selectedKeys={[location.pathname]} openKeys={openKeys} onOpenChange={openMenu}>
             { 
               menus.menu.map(m => !m.subs ? renderMenuItem(m) : renderSubMenu(m))
             }
